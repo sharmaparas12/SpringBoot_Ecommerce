@@ -1,12 +1,32 @@
 package com.example.Ecommerce.controllers;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.Ecommerce.dto.CategoryDTO;
+import com.example.Ecommerce.services.ICategoryService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
+@RequestMapping("/api/categories")
 public class CategoryController {
-    @GetMapping("/employees")
-    String get_ans(){
-        return "paras";
+
+    private final ICategoryService categoryService;
+
+    public CategoryController(ICategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> getAllCategories() throws IOException {
+        List<CategoryDTO> result = this.categoryService.getAllCategories();
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
+        throw new UnsupportedOperationException("Method not implemented yet");
     }
 
 }
